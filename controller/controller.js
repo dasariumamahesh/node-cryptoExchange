@@ -3,7 +3,8 @@ const { v4: uuidv4 } = require('uuid');
 const crypto = require('./crypto')
 
 module.exports.createOrder = async (req, res)=>{
-    req.body.uuid = uuidv4();
+    try{
+        req.body.uuid = uuidv4();
     req.body.pair = req.body.pair.toUpperCase();
     req.body.price = (req.body.price)? req.body.price : await crypto.getPrice(res, req.body.pair.split("-")[0], req.body.pair.split("-")[1])
     mssql.createOrder(req.body).then((data)=>{
@@ -14,6 +15,9 @@ module.exports.createOrder = async (req, res)=>{
     }).catch((error)=>{
         res.status(500).send(error)
     })
+    }catch(error){
+        res.status(500).send(error)
+    }
 }
 
 module.exports.getAllOrders = (req, res)=>{
@@ -33,7 +37,8 @@ module.exports.getOrderByID = (req, res)=>{
 }
 
 module.exports.updateOrderByID = async (req, res)=>{
-    req.body.pair = req.body.pair.toUpperCase()
+    try{
+        req.body.pair = req.body.pair.toUpperCase()
     req.body.price = (req.body.price)? req.body.price : await crypto.getPrice(res, req.body.pair.split("-")[0], req.body.pair.split("-")[1])
     mssql.updateOrderByID(req.body).then((data)=>{
         res.status(200).send({
@@ -43,4 +48,7 @@ module.exports.updateOrderByID = async (req, res)=>{
     }).catch((error)=>{
         res.status(500).send(error)
     })
+    }catch(error){
+        res.status(500).send(error)
+    }
 }

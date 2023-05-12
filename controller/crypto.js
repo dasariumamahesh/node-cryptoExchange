@@ -11,7 +11,7 @@ module.exports.getPrice = async (res, pair1, pair2)=>{
     }
   })
   if(response.data.Response == "Error"){
-    res.status(500).send({"Message":response.data.Message})
+    reject({Message:response.data.Message})
   }else{
     resolve(response.data[pair2])
   }
