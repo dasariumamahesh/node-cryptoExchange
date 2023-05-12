@@ -74,7 +74,6 @@ module.exports.getOrderByID = (data)=>{
 module.exports.updateOrderByID = (data)=>{
     return new Promise((resolve, reject)=>{
         let query = `UPDATE cryptoData SET PAIR='${data.pair}', ORDERTYPE='${data.type}', PRICE=${data.price}, QUANTITY=${data.quantity} WHERE UUID='${data.id}'`
-        console.log(query)
         request.query(query, (err,res)=>{
             if(err){
                 console.log(err)

@@ -1,5 +1,5 @@
 const {check, validationResult} = require('express-validator')
-
+const validationRules = require('./validationRules')
 const validator = (req,res,next)=>{
     const e = validationResult(req)
     if(e.errors.length>0){
@@ -14,33 +14,23 @@ const validator = (req,res,next)=>{
     }
 }
 module.exports.createOrder = [
-    check('pair').exists().withMessage("pair is required").isString().withMessage("pair should be a string"),
-    check('type').exists().withMessage("type is required").custom((value, { req }) => {
-        if (value !== 'buy' && value !== 'sell') {
-          throw new Error('Invalid type. Allowed values: buy, sell');
-        }
-        return true;
-      }),
-    check('price').optional().isFloat({ gt: 0 }).withMessage('price should be greater than 0'),
-    check('quantity').exists().withMessage("quantity is required").isNumeric().withMessage('quantity should be a valid number').isFloat({ gt: 0 }).withMessage('quantity should be greater than 0'),
+    validationRules.pair,
+    validationRules.type,
+    validationRules.price,
+    validationRules.quantity,
     validator
 ]
 
 module.exports.checkOrderID = [
-    check('id').exists().withMessage('ID parameter is required').isUUID().withMessage('Invalid ID parameter'),
+    validationRules.id,
     validator   
 ]
 
 module.exports.updateOrderByID = [
-    check('id').exists().withMessage('ID parameter is required').isUUID().withMessage('Invalid ID parameter'),
-    check('pair').exists().withMessage("pair is required").isString().withMessage("pair should be a string"),
-    check('type').exists().withMessage("type is required").custom((value, { req }) => {
-        if (value !== 'buy' && value !== 'sell') {
-          throw new Error('Invalid type. Allowed values: buy, sell');
-        }
-        return true;
-      }),
-    check('price').optional().isFloat({ gt: 0 }).withMessage('price should be greater than 0'),
-    check('quantity').exists().withMessage("quantity is required").isNumeric().withMessage('quantity should be a valid number').isFloat({ gt: 0 }).withMessage('quantity should be greater than 0'),
+    validationRules.id,
+    validationRules.pair,
+    validationRules.type,
+    validationRules.price,
+    validationRules.quantity,
     validator   
 ]
