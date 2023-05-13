@@ -25,3 +25,7 @@ This is a sample Node.js project that supports CRUD operations for a cryptocurre
 3. This will create a deployment pod. You can verify this by running the following commands: `kubectl get deployment` and `kubectl get pods`.
 4. Now we need to create a service to access the deployment file. Run the following command to create the node service: `kubectl apply -f kubeService.yml`.
 5. The Node server is running, and we can access it at `localhost:5000/<path>`.
+
+### Steps to integrate this with 3rd party API
+
+1. We can use `ngrock` which will give us an IP which can be used to hit our local microservice from an other source.
