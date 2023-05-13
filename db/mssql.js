@@ -40,7 +40,6 @@ module.exports.getAllOrders = ()=>{
         let query = `SELECT * FROM cryptoData`
         request.query(query, (err,res)=>{
             if(err){
-                console.log(err)
                 reject(err)
             }else{
                 if(res.rowsAffected > 0){
@@ -58,7 +57,6 @@ module.exports.getOrderByID = (data)=>{
         let query = `SELECT * FROM cryptoData WHERE UUID='${data}'`
         request.query(query, (err,res)=>{
             if(err){
-                console.log(err)
                 reject(err)
             }else{
                 if(res.rowsAffected > 0){
@@ -76,7 +74,6 @@ module.exports.updateOrderByID = (data)=>{
         let query = `UPDATE cryptoData SET PAIR='${data.pair}', ORDERTYPE='${data.type}', PRICE=${data.price}, QUANTITY=${data.quantity} WHERE UUID='${data.id}'`
         request.query(query, (err,res)=>{
             if(err){
-                console.log(err)
                 reject(err)
             }else{
                 if(res.rowsAffected == 1){
