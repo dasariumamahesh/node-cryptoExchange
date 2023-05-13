@@ -11,9 +11,7 @@ const config = {
 }
 sql.on("error",err=>{console.log(err.message)})
 sql.connect(config, (err)=>{
-    if(err){
-        console.log(err)
-    }
+    if(err) throw err
     console.log("DB conecction sucessful")
 })
 var request = new sql.Request()

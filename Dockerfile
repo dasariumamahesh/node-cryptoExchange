@@ -1,6 +1,6 @@
 FROM node:slim
 WORKDIR /app
-copy . /app
+COPY . /app
 RUN npm install
 EXPOSE 3000
-CMD node index
+CMD ["node", "index", "--network=host"]
